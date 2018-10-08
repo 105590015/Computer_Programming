@@ -1,0 +1,129 @@
+#include<stdio.h>
+void input(char in[],int x[],int *ma)
+{
+    int i=0;
+    scanf("%c",&in[0]);
+    while(in[i]!='\n')
+    {
+        x[i]=in[i]-48;
+        i++;
+        scanf("%c",&in[i]);
+    }
+    *ma=i-1;
+}
+void ad(int ma1,int ma2,int x[],int y[],int add[])
+{
+    int i=0,j,n=0;
+    while(ma1!=-1||ma2!=-1)
+    {
+        if(ma1!=-1&&ma2!=-1)
+        {
+            add[i]+=x[ma1]+y[ma2];
+            if(add[i]>9)
+            {
+                 add[i]=add[i]%10;
+                 add[i+1]++;
+            }
+            i++;ma1--;ma2--;
+        }
+        else if(ma2==-1)
+        {
+            add[i]+=x[ma1];
+            if(add[i]>9)
+            {
+                 add[i]=add[i]%10;
+                 add[i+1]++;
+            }
+            i++;ma1--;
+        }
+    }
+    for(j=60;j>=0;j--)
+    {
+        if(add[j]!=0||n==1)
+        {
+            printf("%d",add[j]);
+            n=1;
+        }
+    }
+    printf("\n");
+}
+void su(int ma1,int ma2,int x[],int y[],int sub[])
+{
+    int i=0,j,n=0,m=0;
+    while(ma1!=-1||ma2!=-1)
+    {
+        if(ma1!=-1&&ma2!=-1)
+        {
+            sub[i]+=x[ma1]-y[ma2];
+            if(sub[i]<0)
+            {
+                 sub[i]+=10;
+                 sub[i+1]--;
+            }
+            i++;ma1--;ma2--;
+        }
+        else if(ma2==-1)
+        {
+            sub[i]+=x[ma1];
+            if(sub[i]<0)
+            {
+                 sub[i]+=10;
+                 sub[i+1]--;
+            }
+            i++;ma1--;
+        }
+    }
+    for(j=59;j>=0;j--)
+    {
+        if(sub[j]!=0||n==1)
+        {
+            printf("%d",sub[j]);
+            n=1;
+        }
+        if(sub[j]==0)
+            m++;
+    }
+    if(m==60)
+        printf("0");
+    printf("\n");
+}
+void mu(int ma1,int ma2,int x[],int y[],int mul[])
+{
+    int i,j,k=0,l=0,t,u,n=0;
+    for(i=ma1;i>=0;i--)
+    {
+        for(j=ma2;j>=0;j--)
+        {
+            mul[k+l]+=x[i]*y[j];
+            k++;
+        }
+        l++;
+        k=0;
+    }
+    for(t=0;t<119;t++)
+    {
+        if(mul[t]>9)
+        {
+            mul[t+1]+=mul[t]/10;
+            mul[t]=mul[t]%10;
+        }
+    }
+    for(u=119;u>=0;u--)
+    {
+        if(mul[u]!=0||n==1)
+        {
+            printf("%d",mul[u]);
+            n=1;
+        }
+    }
+}
+main()
+{
+    char in1[60]={0},in2[60]={0};
+    int x[60]={0},y[60]={0},add[61]={0},sub[60]={0},mul[120]={0},ma1,ma2;
+    input(in1,x,&ma1);
+    input(in2,y,&ma2);
+    ad(ma1,ma2,x,y,add);
+    su(ma1,ma2,x,y,sub);
+    mu(ma1,ma2,x,y,mul);
+}

@@ -1,0 +1,30 @@
+#include<stdio.h>
+main()
+{
+    int line[10][10]={0},n,m,i,j,k,l,city1,city2,distance,incity=1,min=100,all=0,w;
+    char c;
+    scanf("%d%c%d",&n,&c,&m);
+    for(i=0;i<m;i++)
+    {
+        scanf("%d%c%d%c%d",&city1,&c,&city2,&c,&distance);
+        line[city1][city2]=distance;
+        line[city2][city1]=distance;
+    }
+    for(j=1;j<n;j++)
+    {
+        for(k=1;k<=n;k++)
+        {
+            for(l=1;l<=n;l++)
+                line[l][incity]=0;
+            if(line[incity][k]<min&&line[incity][k]!=0)
+            {
+                min=line[incity][k];
+                w=k;
+            }
+        }
+        all+=min;
+        min=100;
+        incity=w;
+    }
+    printf("%d",all);
+}

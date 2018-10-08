@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<math.h>
+main()
+{
+    int q,n,c,d,err;
+    double x1=0.0,x2=0.0;
+    scanf("%d%d%d%d%d",&q,&n,&c,&d,&err);
+    if(q==1)
+    {
+        x1=d/2.0;
+        while(1)
+        {
+            x2=x1-((pow(x1,n)-c*pow(x1,n-2)-d)/(n*pow(x1,n-1)-(n-2)*c*pow(x1,n-3)));
+            if(fabs(x2-x1)<pow(10,-err))
+            {
+                break;
+            }
+            else
+            {
+                x1=x2;
+            }
+        }
+    }
+    else
+    {
+        x1=d/2.0;
+        while(1)
+        {
+            x2=x1-((pow(x1,n)-(c*x1)-d)/(n*pow(x1,n-1)-c));
+            if(fabs(x2-x1)<pow(10,-err))
+            {
+                break;
+            }
+            else
+            {
+                x1=x2;
+            }
+        }
+    }
+    printf("%.*lf",err+1,floor(x2*pow(10,err+1))/pow(10,err+1));
+}
+
